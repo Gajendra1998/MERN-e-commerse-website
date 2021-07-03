@@ -10,7 +10,7 @@ const Product = () => {
               Lorem ipsum dolor sit amet c        onsectetur adipisicing elit. Excepturi ab dolorum voluptatem sint dicta id earum ullam facere ipsum consequuntur.
             
                   </p>
-                  <p className="info__price"> ₹50,000</p>
+                  <p className="info__price"> ₹25,000</p>
                 <Link to={`/product/${111}` }className="info__button">
                     view
                 </Link>
