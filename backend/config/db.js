@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 const mongoose = require('mongoose')
 const connectDB = async ()=>{
 try {
@@ -11,6 +11,5 @@ try {
     console.error("could not connected to mongodb")
     process.exit(1);
 }
-
 } 
 module.exports=connectDB;

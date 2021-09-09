@@ -21,7 +21,6 @@ const Navbar = ({click}) => {
           <Link to="/">Shop</Link>
         </li>
       </ul>
-
       <div className="hamburger__menu" onClick={click}>
         <div></div>
         <div></div>
@@ -30,5 +29,4 @@ const Navbar = ({click}) => {
     </nav>
   );
 };
-
 export default Navbar;
