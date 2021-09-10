@@ -1,11 +1,12 @@
 require('dotenv').config();
 const connectDB=require('./config/db')
-//const seederScript=require('./seederScript')
+// const seederScript=require('./seederScript')
 
 connectDB();
 const express = require('express');
 const app =express();
 const productRoute=require('./routes/productRoute')
+
 app.use(express.json());
 app.use('/api/products',productRoute);
 app.get('/',(req,res)=>{

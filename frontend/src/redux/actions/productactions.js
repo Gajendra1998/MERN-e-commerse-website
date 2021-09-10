@@ -14,7 +14,7 @@ export const getProducts = () => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_PRODUCTS_FAIL,
       payload:
-        error.response && error.response.data.message
+        error.response && error.response.data.message 
           ? error.response.data.message
           : error.message,
     });

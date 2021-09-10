@@ -1,22 +1,44 @@
 import "./ProductScreen.css";
-const ProductScreen = () => {
+import { useState ,useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
+//Action 
+import { getProductDetails } from "../redux/actions/productactions";
+import { addToCart } from "../redux/actions/cartActions";
+const ProductScreen = ({match ,history}) => {
+const [qty ,setQty] = useState(1);
+const dispatch =useDispatch();
+
+const productDetails = useSelector(state=>state.getProductDetails);
+const {loading,error,product}=productDetails;
+
+useEffect(()=>{
+  if(product&&match.params.id!==product._id){
+    dispatch(getProductDetails(match.params.id))
+  }
+},[dispatch,product,match])
+
+const  addToCartHandler=()=>{
+  dispatch(addToCart(product._id,qty));
+  history.push("/cart");
+}
   return (
     <div className="productscreen">
+      {loading?<h2> Loading...</h2>:error?<h2>{error}</h2>:(
+      
+      <>
       <div className="productscreen__left">
         <div className="left__image">
           <img
-            src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
-            alt="product name"
+            src={product.imageUrl}
+          alt={product.name}
           />
         </div>
         <div className="left__info">
-          <p className="left__name">Product 1</p>
-          <p>Price $ 499.0</p>
+          <p className="left__name">{product.name}</p>
+          <p>Price  ₹{product.price} </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-            reiciendis blanditiis nihil voluptatum aperiam. Quasi repudiandae
-            iste facere, nesciunt similique, velit culpa in deleniti numquam
-            nemo aut porro omnis est?{" "}
+           {product.description}
           </p>
         </div>
       </div>
@@ -25,11 +47,11 @@ const ProductScreen = () => {
         <div className="right__info">
           <p>
             price:
-            <span>$499.0 </span>
+            <span> ₹{product.price} </span>
           </p>
-          <p>In Stock</p>
+          {/* <p>{product.countInStock}</p> */}
           <p>
-            status: <span>In stock </span>
+            Status: <span>{product.countInStock >0 ? "In stock":"out of stock"} </span>
           </p>
           <p>
             Qty
@@ -42,12 +64,15 @@ const ProductScreen = () => {
             </select>
             </p>
             <p>
-            <button type="buttton">Add To cart</button>
+            <button type="buttton" onClick={addToCartHandler}>Add To cart</button>
             </p>
         </div>
       </div>
+      </>
+
+      )}
+      
     </div>
   );
 };
-
 export default ProductScreen;
